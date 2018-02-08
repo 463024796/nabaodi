@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>舒宝娜后台管理系统</title>
+    <meta name="description" content="这是一个 table 页面">
+    <meta name="keywords" content="table">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <strong>舒 宝 娜</strong>
+            <small>管理系统</small>
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}">
+            <span class="am-sr-only">导航切换</span>
+            <span class="am-icon-bars"></span>
+        </button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        <li>
+                            <a href="/auth/logout">
+                                <span class="am-icon-sign-out"></span> 注销</a>
+                        </li>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="am-cf admin-main">
+        <!-- sidebar start -->
+        <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+            <div class="am-offcanvas-bar admin-offcanvas-bar">
+                <ul class="am-list admin-sidebar-list">
+                    <li>
+                        <a href="/admin/show">
+                            <span class="am-icon-home"></span> 首页</a>
+                    </li>
+                    <li>
+                        <a href="/admin/all-orders">
+                            <span class="am-icon-table"></span> 所有订单</a>
+                    </li>
+                    <li>
+                        <a href="/admin/uncompleted">
+                            <span class="am-icon-tag"></span> 未完成订单</a>
+                    </li>
+                    <li>
+                        <a href="/admin/completed">
+                            <span class="am-icon-check"></span> 已完成订单</a>
+                    </li>
+                    <li>
+                        <a href="/admin/recycling">
+                            <span class="am-icon-trash-o"></span> 订单回收站</a>
+                    </li>
+                    <li>
+                        <a href="/admin/blacklist">
+                            <span class="am-icon-times"></span> 黑名单</a>
+                    </li>
+                </ul>
+
+                <div class="am-panel am-panel-default admin-sidebar-panel">
+                    <div class="am-panel-bd">
+                        <p>
+                            <span class="am-icon-bookmark"></span> 公告</p>
+                        <p>欢迎来到舒宝娜管理系统
+                            <br>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;--舒宝娜内衣旗舰店</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- sidebar end -->

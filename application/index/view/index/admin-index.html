@@ -1,0 +1,29 @@
+{extend name="layout"}
+{block name="content"}
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>订单信息</small></div>
+      </div>
+
+      <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+        <li><a class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br/>未处理订单<br/>{$not}</a></li>
+        <li><a class="am-text-warning"><span class="am-icon-btn am-icon-briefcase"></span><br/>已完成订单<br/>{$complete}</a></li>
+        <li><a class="am-text-danger"><span class="am-icon-btn am-icon-recycle"></span><br/>昨日提交订单<br/>{$yesterday}</a></li>
+        <li><a class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br/>客户数量<br/>{$count}</a></li>
+      </ul>
+
+    </div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+  </div>
+  <!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+{/block}

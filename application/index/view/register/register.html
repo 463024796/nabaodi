@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>舒宝娜注册页面</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="alternate icon" type="image/png" href="/assets/i/favicon.png">
+  <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+  <style>
+    .header {
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="am-g">
+    <h1>舒 宝 娜</h1>
+    <p>Shu Bao Na<br/></p>
+  </div>
+  <hr />
+</div>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+    <center><h3>客户注册</h3></center>
+    <hr>
+    <br>
+    <br>
+    {if condition="session('?errors')"}
+    <div class="alert alert-danger">
+      <strong></strong>
+      您的填写有误:
+      <br>
+      <br>
+      <ul>
+        {php} $errors = session('errors'); {/php} 
+        {foreach $errors as $error}
+        <li>{$error}</li>
+        {/foreach}
+      </ul>
+    </div>
+  {/if}
+    <form method="post" class="am-form">
+      <label for="email">邮箱:</label>
+      <input type="email" name="email" id="email" value="" require>
+      <br>
+      <label for="tel">手机号码:</label>
+      <input type="text" name="phone" id="tel" value="" require>
+      <br>
+      <label for="number">QQ号:</label>
+      <input type="text" name="qq" id="number" value="" require>
+      <br>
+      <label for="text">旺旺号:</label>
+      <input type="text" name="alipay_id" id="text" value="" require>
+      <br>
+      <label for="password">密码:</label>
+      <input type="password" name="password" id="password" value="" require>
+      <br>
+      <br />
+      <div class="am-cf">
+        <input type="submit" name="" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl">
+        <a href="/login" class="am-fr">已有账号？前往登陆</a>
+      </div>
+    </form>
+    <hr>
+    <p>© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  </div>
+</div>
+</body>
+</html>
