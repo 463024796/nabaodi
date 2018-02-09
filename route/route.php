@@ -22,13 +22,22 @@ Route::group('auth', function() {
 });
 
 Route::group("admin", function(){
-    Route::miss("/");
+    // Route::miss("/");
     Route::rule('/show', 'index/index');
+    Route::rule("/all-members", 'index/Member/allMembers');
     Route::rule('/all-orders', 'index/Order/allOrders');
     Route::rule('/uncompleted', 'index/Order/uncompleted');
     Route::rule('/completed', 'index/Order/completed');
     Route::rule('/recycling', 'index/Order/recycling');
     Route::rule('/blacklist', 'index/Blacklist/index');
+    Route::post('/orders/add', 'index/Order/store');
+    Route::rule('/orders/delete', 'index/Order/delete');
+    Route::rule("/orders/del-black", 'index/Blacklist/delBalck');
+    Route::get("/user", 'index/Order/getUser');
+    Route::post("/orders/edit", 'index/Order/edit');
+    Route::get('/blacklist/del-reback', 'index/Blacklist/reback');
+    Route::rule("/orders/del-order", 'index/Order/delOrders');
+    Route::rule("/orders/del-order-reback", 'index/Order/rebackOrders');
 });
 Route::group("index", function() {
     Route::rule("/show", 'index/Member/showView');

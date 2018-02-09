@@ -39,260 +39,35 @@
               </tr>
               </thead>
               <tbody>
+                {foreach $list as $val}
               <tr>
-                <td><input type="checkbox" /></td>
-                <td>1</td>
-                <td><a href="admin-bursh.html">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                  <input type="hidden" value="{$val.id}" name="user_id">
+                  <td>
+                    <input type="checkbox" value='{$val.user_id}' name="id" />
+                  </td>
+                  <td>{$val.user_id}</td>
+                  <td>
+                    <a href="admin-bursh.html">{$val.email}</a>
+                  </td>
+                  <td>{$val.alipay_id}</td>
+                  <td class="am-hide-sm-only">{$val.qq}</td>
+                  <td class="am-hide-sm-only">{$val.created_at}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                      <!-- <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 还原</button> -->
+                      <button type='button' name="del-reback" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>2</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>3</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>4</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>5</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>6</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>7</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>8</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>9</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>10</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>11</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>12</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>13</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>14</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>15</td>
-                <td><a href="#">123456789@qq.com</a></td>
-                <td>default</td>
-                <td class="am-hide-sm-only">123456789</td>
-                <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                <td>
-                  <div class="am-btn-toolbar">
-                    <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              {/foreach}
               </tbody>
             </table>
             <div class="am-cf">
-              共 15 条记录
+              共 {$list->total()} 条记录
               <div class="am-fr">
-                <ul class="am-pagination">
-                  <li class="am-disabled"><a href="#">«</a></li>
-                  <li class="am-active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">»</a></li>
-                </ul>
+                {$list->render()}
               </div>
             </div>
           </form>

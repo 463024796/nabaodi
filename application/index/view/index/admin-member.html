@@ -1,12 +1,13 @@
-{extend name="layout"} {block name="content"}
+{extend name="layout"}
+{block name="content"}
 
 <!-- content start -->
 <div class="admin-content">
   <div class="admin-content-body">
     <div class="am-cf am-padding am-padding-bottom-0">
       <div class="am-fl am-cf">
-        <strong class="am-text-primary am-text-lg">所有订单</strong> /
-        <small>All orders</small>
+        <strong class="am-text-primary am-text-lg">所有用户</strong> /
+        <small>All members</small>
       </div>
     </div>
 
@@ -26,7 +27,7 @@
 
         <div class="am-u-sm-12 am-u-md-3">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field" name="seach" placeholder="订单号/客户邮箱/商品信息">
+            <input type="text" class="am-form-field" name="seach" placeholder="客户邮箱/旺旺号">
             <span class="am-input-group-btn">
               <button type="submit" class="am-btn am-btn-default" type="button">搜索</button>
             </span>
@@ -72,7 +73,7 @@
                 <th class="table-email">客户邮箱</th>
                 <th class="table-wangwang">旺旺号</th>
                 <th class="table-qqnumber am-hide-sm-only">QQ</th>
-                <th class="table-goodsInfo am-hide-sm-only">商品信息</th>
+                <!-- <th class="table-goodsInfo am-hide-sm-only">身份</th> -->
                 <th class="table-current am-hide-sm-only">当前状态</th>
                 <th class="table-date am-hide-sm-only">状态日期</th>
                 <th class="table-set">操作</th>
@@ -83,17 +84,16 @@
               <tr>
                 <input type="hidden" value="{$val.id}" name="user_id">
                 <td>
-                  <input type="checkbox" value='{$val.order_id}' name="id" />
+                  <input type="checkbox" value='{$val.id}' name="id" />
                 </td>
-                <td>{$val.order_id}</td>
+                <td>{$val.id}</td>
                 <td>
-                  <a href="admin-bursh.html">{$val.email}</a>
+                  <a href="/admin-bursh.html">{$val.email}</a>
                 </td>
                 <td>{$val.alipay_id}</td>
                 <td class="am-hide-sm-only">{$val.qq}</td>
-                <td class="am-hide-sm-only">{$val.product_name}</td>
-                <td class="am-hide-sm-only">{if condition="$val.status == 4"}已拉黑{elseif condition="$val.is_deleted"}已删除{elseif condition="$val.status
-                  == 1"}已完成{else}未完成{/if}</td>
+                <!-- <td class="am-hide-sm-only">{if condition="$val.is_admin"}管理员{else}客户{/if}</td> -->
+                <td class="am-hide-sm-only">{if condition="$val.black"}已拉黑{else}正常{/if}</td>
                 <td class="am-hide-sm-only">{$val.created_at}</td>
                 <td>
                   <div class="am-btn-toolbar">

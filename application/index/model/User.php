@@ -19,6 +19,10 @@ class User extends Model
         if (!password_verify($pwd, $user->password)) {
             return false;
         }
+
+        if (Blacklist::where("user_id", $user->id)->find()) {
+            return "违反相关规定。禁止登录";
+        }
         return $user;
     }
     

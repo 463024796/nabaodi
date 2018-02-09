@@ -1,0 +1,107 @@
+{extend name="layout"}
+
+{block name="content"}
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf">
+          <strong class="am-text-primary am-text-lg">所有订单</strong> /
+          <small>All orders</small>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+          <div class="am-btn-toolbar">
+            <div class="am-btn-group am-btn-group-xs">
+              <button type="button" class="am-btn am-btn-default">
+                <span class="am-icon-plus"></span> 新增</button>
+              <button type="button" class="am-btn am-btn-default">
+                <span class="am-icon-trash-o"></span> 删除</button>
+            </div>
+          </div>
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+          <div class="am-input-group am-input-group-sm">
+            <input type="text" class="am-form-field">
+            <span class="am-input-group-btn">
+              <button class="am-btn am-btn-default" type="button">搜索</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="am-g">
+        <div class="am-u-sm-12">
+          <form class="am-form" action="" method="post">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+                <tr>
+                  <th class="table-check">
+                    <input type="checkbox" name="id" value='1'/>
+                  </th>
+                  <th class="table-id">ID</th>
+                  <th class="table-email">客户邮箱</th>
+                  <th class="table-wangwang">旺旺号</th>
+                  <th class="table-qqnumber am-hide-sm-only">QQ</th>
+                  <th class="table-goodsInfo am-hide-sm-only">商品信息</th>
+                  <th class="table-current am-hide-sm-only">当前状态</th>
+                  <th class="table-date am-hide-sm-only">状态日期</th>
+                  <th class="table-set">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {foreach $list as $val}
+                <tr>
+                  <td>
+                    <input type="checkbox" value='1' name="id"/>
+                  </td>
+                  <td>{$val.order_id}</td>
+                  <td>
+                    <a href="admin-bursh.html">{$val.email}</a>
+                  </td>
+                  <td>{$val.alipay_id}</td>
+                  <td class="am-hide-sm-only">{$val.email}</td>
+                  <td class="am-hide-sm-only">{$val.product_name}</td>
+                  <td class="am-hide-sm-only">{if condition="$val.is_deleted"}已删除{elseif condition="$val.status"}已完成{else}未完成{/if}</td>
+                  <td class="am-hide-sm-only">{$val.created_at}</td>
+                  <td>
+                    <div class="am-btn-toolbar">
+                      <div class="am-btn-group am-btn-group-xs">
+                        <button type="button" id="btn_edit" class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                          <span class="am-icon-pencil-square-o"></span> 编辑</button>
+                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                          <span class="am-icon-trash-o"></span> 删除</button>
+                        <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+                          <span class="am-icon-times"></span> 拉入黑名单</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {/foreach}
+              </tbody>
+            </table>
+            <div class="am-cf">
+              共 {$list->total()} 条记录
+              {$list->render()|raw}
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+
+  </div>
+  <!-- content end -->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+{/block}

@@ -34,8 +34,9 @@ class Login extends Controller
         if ($res !== true) return redirect('/auth/login')->with('errors', $res);
         
         $user = new User();
-        if (!$loginRes = $user->verify($data['email'], $data['password'])) {
-            return $this->sendLoginFail();
+        $loginRes =  $user->verify($data['email'], $data['password']);
+        if (!$loginRes instanceof User) {
+            return $this->sendLoginFail($loginRes);
         }
         if (isset($data['remember']) and !empty($data['remember'])) {
             $this->remember($loginRes);
@@ -64,9 +65,15 @@ class Login extends Controller
     /**
      * 登录不成功的情况下
      */
-    protected function sendLoginFail()
+    protected function sendLoginFail($res)
     {
-        return redirect("/auth/login")->with("errors", [0 => '帐号或密码错误']);
+        if ($res === false) {
+            $str = "帐号或密码错误";
+        } else {
+            $str = $res;
+        }
+
+        return redirect("/auth/login")->with("errors", [0 => $str]);
     }
     
     /**
