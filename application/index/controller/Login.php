@@ -85,10 +85,6 @@ class Login extends Controller
     protected function sendLoginSuccess($loginRes)
     {
         session('user', $loginRes);
-        //获取url。为了接下来判断是否有权限访问
-        $menu = Menu::where("type", $loginRes->is_admin)
-            ->select();
-        session('menu', $menu);
         //判断是否为admin
         if ($loginRes->is_admin) {
             return redirect("/admin/show");

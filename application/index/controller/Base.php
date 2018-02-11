@@ -44,14 +44,17 @@ class Base extends Controller
 
     protected function checkAuthUrl()
     {
-        $menu = session("menu");
-        $arr = [];
-        foreach ($menu as $m) {
-            $arr[] = $m['url'];
-        }
+        $user = session('user');
         $request = new \think\Request;
         $path = $request->path();
-        if (!in_array("/".$path, $arr)) {
+        //就简易的。。。所有都ok *
+        if ($user['is_admin']) {
+            //管理员。
+            $str = "/^admin\/.*?$/";
+        } else {
+            $str = "/^index\/.*?$/";
+        }
+        if (!preg_match($str, $path)) {
             return $this->error("没有权限访问");
         }
     }
