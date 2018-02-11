@@ -7,8 +7,13 @@ use think\Request;
 
 class Blacklist extends Base
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->isPost()) {
+            $blacklist = BlacklistModel::searchBySomething($request->post()['search']);
+            $this->assign("list", $blacklist);
+            return view("index/admin-blacklist");
+        }
         $blacklist = BlacklistModel::alias("b")
             ->join("tp_users tu", 'tu.id = b.user_id', 'left')
             ->field("b.*,tu.email,tu.alipay_id,tu.qq,tu.id")
@@ -27,9 +32,21 @@ class Blacklist extends Base
         return true;
     }
 
-    public function reback(Request $requset)
+    public function reback(Request $request)
     {
-        $id = $requset->get();
+        if ($request->isPost()) {
+            $data = $request->post();
+            $arr = explode(",", $data['all']);
+            foreach ($arr as $val) {
+                if (empty($val)) {
+                    continue;
+                }
+                BlacklistModel::where("user_id", $val)
+                    ->delete();
+            }
+            return true;
+        }
+        $id = $request->get();
         $res = BlacklistModel::where("user_id", $id['id'])
             ->delete();
         return true;

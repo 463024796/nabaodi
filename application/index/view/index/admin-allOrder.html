@@ -41,6 +41,8 @@
         <div class="am-modal-hd">新增订单-信息填写</div>
         <div class="am-modal-bd">
           <hr>
+          <p>订单号：</p>
+          <input type="text" class="am-modal-prompt-input" name="order_number">
           <p>客户邮箱：</p>
           <input type="email" class="am-modal-prompt-input" name="email">
           <p>旺旺号：</p>
@@ -68,7 +70,7 @@
                 <th class="table-check">
                   <input type="checkbox" id="checkall" value="" />
                 </th>
-                <th class="table-id">ID</th>
+                <th class="table-id">订单号</th>
                 <th class="table-email">客户邮箱</th>
                 <th class="table-wangwang">旺旺号</th>
                 <th class="table-qqnumber am-hide-sm-only">QQ</th>
@@ -85,7 +87,7 @@
                 <td>
                   <input type="checkbox" value='{$val.order_id}' name="id" />
                 </td>
-                <td>{$val.order_id}</td>
+                <td>{$val.order_number}</td>
                 <td>
                   <a href="admin-bursh.html">{$val.email}</a>
                 </td>

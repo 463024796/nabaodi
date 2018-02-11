@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-02-09 23:35:24
+Date: 2018-02-11 22:13:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,11 +40,38 @@ CREATE TABLE `tp_blacklist` (
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`blacklist_id`),
   UNIQUE KEY `user_unique` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_blacklist
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for tp_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_menu`;
+CREATE TABLE `tp_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `class` varchar(255) DEFAULT NULL,
+  `sort` int(10) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `type` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_menu
+-- ----------------------------
+INSERT INTO `tp_menu` VALUES ('1', '首页', '/admin/show', 'am-icon-home', '1', '1', '1');
+INSERT INTO `tp_menu` VALUES ('2', '所有用户', '/admin/all-members', 'am-icon-times', '2', '1', '1');
+INSERT INTO `tp_menu` VALUES ('3', '所有订单', '/admin/all-orders', 'am-icon-table', '3', '1', '1');
+INSERT INTO `tp_menu` VALUES ('4', '未完成订单', '/admin/uncompleted', 'am-icon-tag', '4', '1', '1');
+INSERT INTO `tp_menu` VALUES ('5', '已完成订单', '/admin/completed', 'am-icon-check', '5', '1', '1');
+INSERT INTO `tp_menu` VALUES ('6', '订单回收站', '/admin/recycling', 'am-icon-trash-o', '6', '1', '1');
+INSERT INTO `tp_menu` VALUES ('7', '黑名单', '/admin/blacklist', 'am-icon-times', '7', '1', '1');
+INSERT INTO `tp_menu` VALUES ('8', '个人中心', '/index/show', 'am-icon-home', '1', '1', '0');
 
 -- ----------------------------
 -- Table structure for tp_orders
@@ -53,25 +80,29 @@ DROP TABLE IF EXISTS `tp_orders`;
 CREATE TABLE `tp_orders` (
   `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
+  `order_number` varchar(50) NOT NULL,
   `product_name` varchar(255) DEFAULT NULL,
   `status` tinyint(2) DEFAULT '0' COMMENT '0为未处理1为已处理',
   `is_deleted` tinyint(2) DEFAULT '0',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`order_id`),
+  UNIQUE KEY `numbers` (`order_number`),
   KEY `orders_` (`order_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_orders
 -- ----------------------------
-INSERT INTO `tp_orders` VALUES ('1', '2', '11', '0', '1', '1518096371', '1518096371');
-INSERT INTO `tp_orders` VALUES ('2', '2', '1', '0', '1', '1518096371', '1518096371');
-INSERT INTO `tp_orders` VALUES ('3', '1', 'wo juemdead f', '0', '1', '1970', '1970');
-INSERT INTO `tp_orders` VALUES ('4', '1', 'wo juemdead f', '0', '1', '1970', '1970');
-INSERT INTO `tp_orders` VALUES ('5', '6', '123456', '0', '1', '1518156903', '1518156903');
-INSERT INTO `tp_orders` VALUES ('6', '7', 'wotetiana ', '0', '1', '1518105600', '1518105600');
-INSERT INTO `tp_orders` VALUES ('7', '1', 'wotetiana ', '0', '1', '1518105600', '1518105600');
+INSERT INTO `tp_orders` VALUES ('1', '2', '123', '11', '1', '1', '1518096371', '1518096371');
+INSERT INTO `tp_orders` VALUES ('2', '2', '321', '1', '1', '1', '1518096371', '1518096371');
+INSERT INTO `tp_orders` VALUES ('3', '1', '222', 'wo juemdead f', '1', '1', '1970', '1970');
+INSERT INTO `tp_orders` VALUES ('8', '1', '', '32131321', '1', '1', '1518350503', '1518350503');
+INSERT INTO `tp_orders` VALUES ('7', '1', '231356', 'wotetiana ', '1', '1', '1518105600', '1518105600');
+INSERT INTO `tp_orders` VALUES ('9', '1', '231231321', '123123', '0', '0', '1518352204', '1518352204');
+INSERT INTO `tp_orders` VALUES ('10', '1', '321432423', '123', '0', '0', '1518354594', '1518354594');
+INSERT INTO `tp_orders` VALUES ('11', '1', '323', '1234444', '0', '0', '1518354608', '1518354608');
+INSERT INTO `tp_orders` VALUES ('12', '1', '321321', '123', '0', '0', '1518354629', '1518354629');
 
 -- ----------------------------
 -- Table structure for tp_users

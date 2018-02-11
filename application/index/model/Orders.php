@@ -38,6 +38,7 @@ class Orders extends Model
         self::save([
             'user_id' => $user->id,
             'product_name' => $data['product_name'],
+            'order_number' => $data['order_number']
         ]);
         return true;
     }
@@ -122,28 +123,24 @@ class Orders extends Model
     public static function searchForAll($data, $type)
     {
         if ($type == 'email') {
-            return self::alias("or")
-            ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("u.email", "like", "%".$data."%")
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
-            ->paginate(15)->each(function($user){
-                $black = Blacklist::where("user_id", $user->id)->find();
-                if ($black) $user['status'] = 4;
-            });
+            $where = 'u.email';
         } elseif ($type == 'order') {
-            echo 3;
-            return ;
+            $where = 'or.order_number';
         } else {
-            return self::alias("or")
+            $where = 'or.product_name';
+        }
+        return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("or.product_name", "like", "%".$data."%")
+            ->where($where, "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
-            ->paginate(15)->each(function($user){
-                $black = Blacklist::where("user_id", $user->id)->find();
-                if ($black) $user['status'] = 4;
-            });
-        }
+            ->paginate(15)->each(function ($user) {
+            $black = Blacklist::where("user_id", $user->id)->find();
+            if ($black) {
+                $user['status'] = 4;
+            }
+
+        });
     }
 
     /**
@@ -165,35 +162,31 @@ class Orders extends Model
         }
     }
     /**
-     * 未完成查询
+     * 未完成查询（email/order/product_name）
      */
     public static function searchSomething($data, $type, $is)
     {
         if ($type == 'email') {
-            return self::alias("or")
-            ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("u.email", "like", "%".$data."%")
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
-            ->where("or.status", $is)
-            ->where("or.is_deleted", 0)
-            ->where('u.id not in (select user_id from tp_blacklist)')
-            ->paginate(15);
+            $where = 'u.email';
         } elseif ($type == 'order') {
-            echo 3;
-            return ;
+            $where = 'or.order_number';
         } else {
-            return self::alias("or")
+            $where = 'or.product_name';
+        }
+        return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("or.product_name", "like", "%".$data."%")
+            ->where($where, "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
             ->where("or.status", $is)
             ->where("or.is_deleted", 0)
             ->where('u.id not in (select user_id from tp_blacklist)')
             ->paginate(15);
-        }
     }
 
+    /**
+     * 恢复订单
+     */
     public function rebackOrders($data)
     {
         if (is_array($data)) {
@@ -207,6 +200,41 @@ class Orders extends Model
         } else {
             self::where("order_id", $data)
                 ->update(["is_deleted" => 0]);
+        }
+    }
+
+    public static function searchRecycling($data, $type)
+    {
+        if ($type == 'email') {
+            $where = 'u.email';
+        } elseif ($type == 'order') {
+            $where = 'or.order_number';
+        } else {
+            $where = 'or.product_name';
+        }
+        return self::alias("or")
+            ->join("users u", 'or.user_id = u.id', 'left')
+            ->where($where, "like", "%" . $data . "%")
+            ->order("or.order_id", 'desc')
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->where("or.is_deleted", 1)
+            ->where('u.id not in (select user_id from tp_blacklist)')
+            ->paginate(15);
+    }
+
+    public function deleteOrder($data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $val) {
+                if (empty($val)) {
+                    continue;
+                }
+                self::where("order_id", $val)
+                    ->delete();
+            }
+        } else {
+            self::where("order_id", $data)
+                ->delete();
         }
     }
 }

@@ -54,34 +54,12 @@
         <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
             <div class="am-offcanvas-bar admin-offcanvas-bar">
                 <ul class="am-list admin-sidebar-list">
+                    {foreach $menu as $m}
                     <li>
-                        <a href="/admin/show">
-                            <span class="am-icon-home"></span> 首页</a>
+                        <a href="{$m.url}">
+                            <span class="{$m.class}"></span> {$m.title}</a>
                     </li>
-                    <li>
-                            <a href="/admin/all-members">
-                                <span class="am-icon-times"></span> 所有用户</a>
-                        </li>
-                    <li>
-                        <a href="/admin/all-orders">
-                            <span class="am-icon-table"></span> 所有订单</a>
-                    </li>
-                    <li>
-                        <a href="/admin/uncompleted">
-                            <span class="am-icon-tag"></span> 未完成订单</a>
-                    </li>
-                    <li>
-                        <a href="/admin/completed">
-                            <span class="am-icon-check"></span> 已完成订单</a>
-                    </li>
-                    <li>
-                        <a href="/admin/recycling">
-                            <span class="am-icon-trash-o"></span> 订单回收站</a>
-                    </li>
-                    <li>
-                        <a href="/admin/blacklist">
-                            <span class="am-icon-times"></span> 黑名单</a>
-                    </li>
+                    {/foreach}
                 </ul>
 
                 <div class="am-panel am-panel-default admin-sidebar-panel">

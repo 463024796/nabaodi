@@ -7,10 +7,6 @@ use app\index\model\Orders;
 
 class Index extends Base
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
     public function index()
     {
         list($start_y, $end_y) = Time::yesterday();

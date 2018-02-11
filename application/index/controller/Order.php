@@ -67,11 +67,12 @@ class Order extends Base
     public function store(Request $request)
     {
         $data = $request->post();
-        $array['email'] = $data['data'][0];
-        $array['alipay_id'] = $data['data'][1];
-        $array['qq'] = $data['data'][2];
-        $array['product_name'] = $data['data'][3];
-        $array['created_at'] = $data['data'][4];
+        $array['order_number'] = $data['data'][0];
+        $array['email'] = $data['data'][1];
+        $array['alipay_id'] = $data['data'][2];
+        $array['qq'] = $data['data'][3];
+        $array['product_name'] = $data['data'][4];
+        $array['created_at'] = $data['data'][5];
         $array['updated_at'] = $array['created_at'];
         //检测数据是否正确
         $res = $this->verifyForStore($array);
@@ -134,8 +135,11 @@ class Order extends Base
     /**
      * 已完成订单界面
      */
-    public function completed()
+    public function completed(Request $request)
     {
+        if ($request->isPost()) {
+            return $this->completedSearch($request);
+        }
         $order = OrderModel::getCompleted();
         $this->assign("list", $order);
         return view('index/admin-completed');
@@ -143,8 +147,14 @@ class Order extends Base
     /**
      * 回收站订单界面
      */
-    public function recycling()
+    public function recycling(Request $request)
     {
+        if ($request->isPost()) {
+            $res = $this->match($request->post()['search']);
+            $data = Orders::searchRecycling($request->post()['search'], $res);
+            $this->assign("list", $data);
+            return view('index/admin-recyclingStation');
+        }
         $order = Orders::getRecycling();
         $this->assign("list", $order);
         return view('index/admin-recyclingStation');
@@ -171,7 +181,7 @@ class Order extends Base
         $order = Orders::editById($request->post()['data']);
         return $order;
     }
-    
+
     /**
      * 批量完成订单
      */
@@ -215,6 +225,35 @@ class Order extends Base
         $arr = explode(",", $data['all']);
 
         $res = $order->rebackOrders($arr);
+        return $res;
+    }
+
+    /**
+     * 已完成页面的搜索
+     */
+    public function completedSearch($request)
+    {
+        $res = $this->match($request->post()['search']);
+        $data = Orders::searchSomething($request->post()['search'], $res, 1);
+        $this->assign("list", $data);
+        return view('index/admin-completed');
+    }
+
+    /**
+     * 彻底删除
+     */
+    public function realDelete(Request $request)
+    {
+        $order = new OrderModel;
+        if ($request->isGet()) {
+            $order->deleteOrder($request->get("id"));
+            return true;
+        }
+        //判断是单个还是多个
+        $data = $request->post();
+        $arr = explode(",", $data['all']);
+
+        $res = $order->deleteOrder($arr);
         return $res;
     }
 }

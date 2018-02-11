@@ -35,12 +35,15 @@ Route::group("admin", function(){
     Route::rule("/orders/del-black", 'index/Blacklist/delBalck');
     Route::get("/user", 'index/Order/getUser');
     Route::post("/orders/edit", 'index/Order/edit');
-    Route::get('/blacklist/del-reback', 'index/Blacklist/reback');
+    Route::rule('/blacklist/del-reback', 'index/Blacklist/reback');
     Route::rule("/orders/del-order", 'index/Order/delOrders');
     Route::rule("/orders/del-order-reback", 'index/Order/rebackOrders');
+    Route::rule("/orders/delete-orders", 'index/Order/realDelete');
 });
+
 Route::group("index", function() {
     Route::rule("/show", 'index/Member/showView');
+    Route::post("/add", "index/Member/store");
 });
 return [
 

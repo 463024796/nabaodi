@@ -2,9 +2,10 @@
 
 namespace app\index\controller;
 
+use app\index\model\Menu;
+use app\index\model\User;
 use think\Controller;
 use think\Request;
-use app\index\model\User;
 
 class Login extends Controller
 {
@@ -31,10 +32,12 @@ class Login extends Controller
         $data = $request->post();
         //验证数据的准确性
         $res = $this->validator($data);
-        if ($res !== true) return redirect('/auth/login')->with('errors', $res);
-        
+        if ($res !== true) {
+            return redirect('/auth/login')->with('errors', $res);
+        }
+
         $user = new User();
-        $loginRes =  $user->verify($data['email'], $data['password']);
+        $loginRes = $user->verify($data['email'], $data['password']);
         if (!$loginRes instanceof User) {
             return $this->sendLoginFail($loginRes);
         }
@@ -61,7 +64,7 @@ class Login extends Controller
         }
         return true;
     }
-    
+
     /**
      * 登录不成功的情况下
      */
@@ -75,20 +78,24 @@ class Login extends Controller
 
         return redirect("/auth/login")->with("errors", [0 => $str]);
     }
-    
+
     /**
      * 登录成功的情况下
      */
     protected function sendLoginSuccess($loginRes)
     {
         session('user', $loginRes);
+        //获取url。为了接下来判断是否有权限访问
+        $menu = Menu::where("type", $loginRes->is_admin)
+            ->select();
+        session('menu', $menu);
         //判断是否为admin
         if ($loginRes->is_admin) {
             return redirect("/admin/show");
         }
         //会员页面
         return redirect("/index/show");
-        
+
     }
 
     public function logout()
@@ -100,6 +107,6 @@ class Login extends Controller
 
     public function remember($user)
     {
-        cookie("user", $user, 3600 * 24 *7);
+        cookie("user", $user, 3600 * 24 * 7);
     }
 }
