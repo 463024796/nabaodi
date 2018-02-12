@@ -18,9 +18,9 @@ class Index extends Base
         //未处理订单
         $not = $order->where("status", 0)->where('user_id not in (select user_id from tp_blacklist)')->where("is_deleted", 0)->count();
         //已完成
-        $complete = $order->where("status", 1)->count();
+        $complete = $order->where("status", 1)->where('user_id not in (select user_id from tp_blacklist)')->where("is_deleted", 0)->count();
         //客户数量
-        $count = $user->where("is_admin", 0)->count();
+        $count = $user->count();
 
         $this->assign("yesterday", $yesterday);
         $this->assign("not", $not);

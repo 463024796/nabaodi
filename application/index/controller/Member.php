@@ -16,8 +16,9 @@ class Member extends Base
     public function showView(Request $request)
     {
         $user = session("user");
+        if (!is_array($user)) $user = (array) $user;
         if ($request->isPost()) {
-            $data = Orders::where("order_number|product_name", 'like', '%'.$request->post()['search']."%")
+            $data = Orders::where("order_number|product_name", 'like', '%' . $request->post()['search'] . "%")
                 ->where("user_id", $user['id'])
                 ->paginate(15);
             $this->assign("user", $user);
@@ -30,12 +31,22 @@ class Member extends Base
         $this->assign("list", $data);
         return view('index/admin-bursh');
     }
+
     /**
      * 所有的用户
      */
-    public function allMembers()
+    public function allMembers(Request $request)
     {
-        $users = User::where("is_admin", 0)->paginate(15)->each(function ($user) {
+        if ($request->isPost()) {
+            $users = User::where("qq|alipay_id", 'like', '%'.$request->post()['search']."%")
+            ->paginate(15)->each(function ($user) {
+                $blacklist = Blacklist::where("user_id", $user->id)->find();
+                $user['black'] = empty($blacklist) ? 0 : 1;
+            });
+            $this->assign("list", $users);
+            return view("index/admin-member");
+        }
+        $users = User::paginate(15)->each(function ($user) {
             $blacklist = Blacklist::where("user_id", $user->id)->find();
             $user['black'] = empty($blacklist) ? 0 : 1;
         });
@@ -67,5 +78,21 @@ class Member extends Base
         ]);
         return true;
     }
-
+    /**
+     * 处理注册
+     */
+     public function delRegisterMembers(Request $request)
+     {
+        $order = new User;
+        if ($request->isGet()) {
+            $order->delRegister($request->get("id"));
+            return true;
+        }
+        //判断是单个还是多个
+        $data = $request->post();
+        $arr = explode(",", $data['all']);
+        
+        $res = $order->delRegister($arr);
+        return $res;
+     }
 }

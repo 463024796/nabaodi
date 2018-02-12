@@ -16,7 +16,7 @@ class Blacklist extends Base
         }
         $blacklist = BlacklistModel::alias("b")
             ->join("tp_users tu", 'tu.id = b.user_id', 'left')
-            ->field("b.*,tu.email,tu.alipay_id,tu.qq,tu.id")
+            ->field("b.*,tu.email,tu.alipay_id,tu.qq,tu.id,tu.phone")
             ->paginate(15);
         $this->assign("list", $blacklist);
         return view('index/admin-blacklist');
@@ -25,6 +25,17 @@ class Blacklist extends Base
     public function delBalck(Request $request)
     {
         $black = new BlacklistModel;
+        if ($request->isPost()) {
+            $data = $request->post();
+            $arr = explode(",", $data['all']);
+            foreach ($arr as $val) {
+                if (empty($val)) {
+                    continue;
+                }
+                $res = $black->delById($val);
+            }
+            return true;
+        }
         $res = $black->delById($request->get("id"));
         if ($res === false) {
             return "这个人已经在黑名单中了";

@@ -84,7 +84,7 @@ class Login extends Controller
      */
     protected function sendLoginSuccess($loginRes)
     {
-        session('user', $loginRes);
+        session('user', $loginRes->toArray());
         //判断是否为admin
         if ($loginRes->is_admin) {
             return redirect("/admin/show");

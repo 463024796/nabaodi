@@ -42,25 +42,7 @@ class Orders extends Model
         ]);
         return true;
     }
-    /**
-     * 通过id删除订单
-     */
-    public function deleteById($data)
-    {
-        if (is_array($data)) {
-            foreach ($data as $val) {
-                if (empty($val)) {
-                    continue;
-                }
-                self::where("order_id", $val)
-                    ->update(['is_deleted' => 1]);
-            }
-        } else {
-            self::where("order_id", $data)
-                ->update(["is_deleted" => 1]);
-        }
-
-    }
+    
     /**
      * 未完成订单界面
      */
@@ -68,7 +50,7 @@ class Orders extends Model
     {
         return self::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->order("or.order_id", 'desc')
             ->where("or.status", 0)
             ->where("or.is_deleted", 0)
@@ -82,7 +64,7 @@ class Orders extends Model
     {
         return self::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->order("or.order_id", 'desc')
             ->where("or.status", 1)
             ->where("or.is_deleted", 0)
@@ -97,7 +79,7 @@ class Orders extends Model
     {
         return self::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->order("or.order_id", 'desc')
             ->where("or.is_deleted", 1)
             ->where('u.id not in (select user_id from tp_blacklist)')
@@ -109,31 +91,25 @@ class Orders extends Model
      */
     public static function editById($user_id)
     {
-        return self::where("order_id", $user_id[5])
+        return self::where("order_id", $user_id[6])
             ->update([
-                'product_name' => $user_id[3],
-                'created_at' => strtotime($user_id[4]),
-                'updated_at' => strtotime($user_id[4]),
+                'order_number' => $user_id[1],
+                'product_name' => $user_id[4],
+                'created_at' => strtotime($user_id[5]),
+                'updated_at' => strtotime($user_id[5]),
             ]);
     }
 
     /**
      * 搜索
      */
-    public static function searchForAll($data, $type)
+    public static function searchForAll($data)
     {
-        if ($type == 'email') {
-            $where = 'u.email';
-        } elseif ($type == 'order') {
-            $where = 'or.order_number';
-        } else {
-            $where = 'or.product_name';
-        }
         return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where($where, "like", "%" . $data . "%")
+            ->where("u.alipay_id|u.qq", "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->paginate(15)->each(function ($user) {
             $black = Blacklist::where("user_id", $user->id)->find();
             if ($black) {
@@ -146,77 +122,47 @@ class Orders extends Model
     /**
      * 批量完成订单
      */
-    public static function completedOrder($data)
+    public static function completedOrder($data, $field = 'order_id', $edit_field = 'status', $field_val = 1)
     {
+        $time = time();
         if (is_array($data)) {
             foreach ($data as $val) {
                 if (empty($val)) {
                     continue;
                 }
-                self::where("order_id", $val)
-                    ->update(['status' => 1]);
+                self::where($field, $val)
+                    ->update([$edit_field => $field_val, 'updated_at' => $time]);
             }
         } else {
-            self::where("order_id", $data)
-                ->update(["status" => 1]);
+            self::where($field, $data)
+                ->update([$edit_field => $field_val, 'updated_at' => $time]);
         }
     }
     /**
-     * 未完成查询（email/order/product_name）
+     * 未完成查询（alipay_id|qq）
      */
-    public static function searchSomething($data, $type, $is)
+    public static function searchSomething($data, $is)
     {
-        if ($type == 'email') {
-            $where = 'u.email';
-        } elseif ($type == 'order') {
-            $where = 'or.order_number';
-        } else {
-            $where = 'or.product_name';
-        }
+        
         return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where($where, "like", "%" . $data . "%")
+            ->where("u.qq|u.alipay_id", "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->where("or.status", $is)
             ->where("or.is_deleted", 0)
             ->where('u.id not in (select user_id from tp_blacklist)')
             ->paginate(15);
     }
 
-    /**
-     * 恢复订单
-     */
-    public function rebackOrders($data)
-    {
-        if (is_array($data)) {
-            foreach ($data as $val) {
-                if (empty($val)) {
-                    continue;
-                }
-                self::where("order_id", $val)
-                    ->update(['is_deleted' => 0]);
-            }
-        } else {
-            self::where("order_id", $data)
-                ->update(["is_deleted" => 0]);
-        }
-    }
 
-    public static function searchRecycling($data, $type)
+    public static function searchRecycling($data)
     {
-        if ($type == 'email') {
-            $where = 'u.email';
-        } elseif ($type == 'order') {
-            $where = 'or.order_number';
-        } else {
-            $where = 'or.product_name';
-        }
         return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where($where, "like", "%" . $data . "%")
+            ->where("u.qq|u.alipay_id", "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
-            ->field("or.*,u.email, u.id, u.alipay_id,u.qq")
+            ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->where("or.is_deleted", 1)
             ->where('u.id not in (select user_id from tp_blacklist)')
             ->paginate(15);
@@ -236,5 +182,14 @@ class Orders extends Model
             self::where("order_id", $data)
                 ->delete();
         }
+    }
+
+    public function undoCompleted($id)
+    {
+        return self::where("order_id", $id)
+        ->update([
+            'status' => 0,
+            'updated_at' => time(),
+        ]);
     }
 }

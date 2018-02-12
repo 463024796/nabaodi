@@ -7,7 +7,7 @@ class OrderValidate extends Validate
 {
     protected $rule = [
         'order_number' => 'require|unique:orders,order_number,,order_id',
-        'email' => 'require|email',
+        'email' => 'require',
         'alipay_id' => 'require',
         'qq' => 'require',
         'product_name' => 'require',

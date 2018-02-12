@@ -34,11 +34,15 @@ Route::group("admin", function(){
     Route::rule('/orders/delete', 'index/Order/delete');
     Route::rule("/orders/del-black", 'index/Blacklist/delBalck');
     Route::get("/user", 'index/Order/getUser');
+    Route::get("/orders", 'index/Order/getOrders');
     Route::post("/orders/edit", 'index/Order/edit');
     Route::rule('/blacklist/del-reback', 'index/Blacklist/reback');
     Route::rule("/orders/del-order", 'index/Order/delOrders');
     Route::rule("/orders/del-order-reback", 'index/Order/rebackOrders');
     Route::rule("/orders/delete-orders", 'index/Order/realDelete');
+    Route::rule("/orders/edit-user", 'index/Order/modifyUser');
+    Route::rule("/menbers/del-register", 'index/Member/delRegisterMembers');
+    Route::rule("/orders/del-reback-uncompleted", 'index/Order/undoCompleted');
 });
 
 Route::group("index", function() {

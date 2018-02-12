@@ -17,16 +17,16 @@
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
               <!-- <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button> -->
-              <button name="del-all-order" type="button" class="am-btn am-btn-default">
+              <button type="button" class="am-btn am-btn-default" onclick="batch('/admin/orders/del-order')">
                 <span class="am-icon-check"></span> 完成订单</button>
-              <button id='del-all' type="button" class="am-btn am-btn-default">
+              <button id='del-all' type="button" class="am-btn am-btn-default" onclick="batch('/admin/orders/delete')">
                 <span class="am-icon-trash-o"></span> 删除</button>
             </div>
           </div>
         </div>
         <div class="am-u-sm-12 am-u-md-3">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field" name='search' placeholder="订单号/客户邮箱/商品信息">
+            <input type="text" class="am-form-field" name='search' placeholder="旺旺号/QQ号">
             <span class="am-input-group-btn">
               <button class="am-btn am-btn-default" type="submit">搜索</button>
             </span>
@@ -44,8 +44,8 @@
                   <input type="checkbox" id="checkall" />
                 </th>
                 <th class="table-id">订单号</th>
-                <th class="table-email">客户邮箱</th>
-                <th class="table-wangwang">旺旺号</th>
+                <th class="table-email">店铺名称</th>
+                <th class="table-wangwang">手机号</th>
                 <th class="table-qqnumber am-hide-sm-only">QQ</th>
                 <th class="table-goodsInfo am-hide-sm-only">商品信息</th>
                 <th class="table-date am-hide-sm-only">提交日期</th>
@@ -61,18 +61,18 @@
                 </td>
                 <td>{$val.order_number}</td>
                 <td>
-                  <a href="admin-bursh.html">{$val.email}</a>
+                  <a>{$val.email}</a>
                 </td>
-                <td>{$val.alipay_id}</td>
+                <td>{$val.phone}</td>
                 <td class="am-hide-sm-only">{$val.qq}</td>
                 <td class="am-hide-sm-only">{$val.product_name}</td>
-                <td class="am-hide-sm-only">{$val.created_at}</td>
+                <td class="am-hide-sm-only">{$val.updated_at}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button type="button" name="del-complete" class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                      <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary" onclick="delById('/admin/orders/del-order', $(this), 'name', 'order_id')">
                         <span class="am-icon-pencil-square-o"></span>完成订单</button>
-                      <button name="del-one" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" name="del-id">
+                      <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="delById('/admin/orders/delete', $(this), 'name', 'order_id')">
                         <span class="am-icon-trash-o"></span> 删除</button>
                       <button name='del-black' type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
                         <span class="am-icon-times"></span> 拉入黑名单</button>
