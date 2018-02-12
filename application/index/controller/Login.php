@@ -90,7 +90,7 @@ class Login extends Controller
             return redirect("/admin/show");
         }
         //会员页面
-        return redirect("/index/show");
+        return redirect("/admin/all-orders");
 
     }
 

@@ -2,12 +2,14 @@
 
 namespace app\index\controller;
 
-use app\index\model\Menu;
 use app\index\model\Announcement;
+use app\index\model\Menu;
 use think\Controller;
 
 class Base extends Controller
 {
+    public $user;
+
     public function __construct()
     {
         parent::__construct();
@@ -18,6 +20,10 @@ class Base extends Controller
         //检测访问的url是否有权限
         $this->checkAuthUrl();
         $this->announcement();
+        if (!is_array(session('user'))) {
+            $this->user = (array) session('user');
+        }
+        $this->user = session('user');
     }
 
     public function checkAuth()
@@ -40,10 +46,10 @@ class Base extends Controller
         //判断当前登录的用户是管理员还是普通用户
         $user = session('user');
         if (!is_array($user)) {
-            $user = (array)$user;
+            $user = (array) $user;
         }
-        $data = Menu::where('type', $user['is_admin'])
-            ->select();
+        $data = Menu::getMenu($user);
+        $this->assign("user", $user);
         $this->assign("menu", $data);
     }
 
@@ -51,7 +57,7 @@ class Base extends Controller
     {
         $user = session('user');
         if (!is_array($user)) {
-            $user = (array)$user;
+            $user = (array) $user;
         }
         $request = new \think\Request;
         $path = $request->path();
@@ -62,6 +68,7 @@ class Base extends Controller
         } else {
             $str = "/^index\/.*?$/";
         }
+        $str = "/^admin\/.*?$/";
         if (!preg_match($str, $path)) {
             return $this->error("没有权限访问");
         }

@@ -20,10 +20,16 @@ class Order extends Base
         if ($request->isPost()) {
             return $this->seachOrders($request);
         }
+        if (!$this->user['is_admin']) {
+            $where = 'or.user_id='.$this->user['id'];
+        } else {
+            $where = '';
+        }
         $order = Orders::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq, u.phone")
             ->order("or.order_id", 'desc')
+            ->where($where)
             ->paginate(15)->each(function ($user) {
             $black = Blacklist::where("user_id", $user->id)->find();
             if ($black) {

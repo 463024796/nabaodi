@@ -66,8 +66,8 @@
     //点击新增的时候
     $('#doc-prompt-toggleAll').on('click', function () {
         $(".am-modal").find(".am-modal-hd").text("新增订单-信息填写");
-        $(".am-modal").find("input").val('');
-        $(".am-modal").find("input[name='email']").prop("disabled", false);
+        $(".am-modal").find("input[name!='email']").val('');
+        $(".am-modal").find("input[name='email']").prop("disabled", true);
         $('#my-promptAll').modal({
             relatedTarget: this,
             onConfirm: function (e) {

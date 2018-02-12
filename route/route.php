@@ -45,10 +45,10 @@ Route::group("admin", function(){
     Route::rule("/orders/del-reback-uncompleted", 'index/Order/undoCompleted');
 });
 
-Route::group("index", function() {
-    Route::rule("/show", 'index/Member/showView');
-    Route::post("/add", "index/Member/store");
-});
+// Route::group("index", function() {
+    // Route::rule("/show", 'index/Member/showView');
+    // Route::post("/add", "index/Member/store");
+// });
 return [
 
 ];

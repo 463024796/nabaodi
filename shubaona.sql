@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-02-12 19:49:49
+Date: 2018-02-12 23:14:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,6 +29,25 @@ CREATE TABLE `tp_announcement` (
 -- Records of tp_announcement
 -- ----------------------------
 INSERT INTO `tp_announcement` VALUES ('1', '<p>欢迎来到舒宝娜管理系统<br><br>&nbsp;&nbsp;&nbsp;&nbsp;--舒宝娜内衣旗舰店</p>');
+
+-- ----------------------------
+-- Table structure for tp_auth
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_auth`;
+CREATE TABLE `tp_auth` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` varchar(10) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `rule` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_auth
+-- ----------------------------
+INSERT INTO `tp_auth` VALUES ('1', '1', '超级管理员', '1', '1,2,3,4,5,6,7');
+INSERT INTO `tp_auth` VALUES ('2', '0', '管理员', '1', '3,4,5,6,7');
 
 -- ----------------------------
 -- Table structure for tp_blacklist
@@ -72,7 +91,7 @@ INSERT INTO `tp_menu` VALUES ('4', '未完成订单', '/admin/uncompleted', 'am-
 INSERT INTO `tp_menu` VALUES ('5', '已完成订单', '/admin/completed', 'am-icon-check', '5', '1', '1');
 INSERT INTO `tp_menu` VALUES ('6', '订单回收站', '/admin/recycling', 'am-icon-trash-o', '6', '1', '1');
 INSERT INTO `tp_menu` VALUES ('7', '黑名单', '/admin/blacklist', 'am-icon-times', '7', '1', '1');
-INSERT INTO `tp_menu` VALUES ('8', '个人中心', '/index/show', 'am-icon-home', '1', '1', '0');
+INSERT INTO `tp_menu` VALUES ('8', '个人中心', '/index/show', 'am-icon-home', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_orders
@@ -98,8 +117,8 @@ CREATE TABLE `tp_orders` (
 INSERT INTO `tp_orders` VALUES ('13', '3', '123456', '321321', '1', '0', '1518421063', '1518435577');
 INSERT INTO `tp_orders` VALUES ('14', '7', '123412356', '321321', '1', '0', '1518421063', '1518435577');
 INSERT INTO `tp_orders` VALUES ('15', '4', '1256', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('16', '1', '12533336', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('17', '8', '12533337446', '321321', '1', '0', '1518421063', '1518435577');
+INSERT INTO `tp_orders` VALUES ('16', '12', '12533336', '321321', '1', '0', '1518421063', '1518435577');
+INSERT INTO `tp_orders` VALUES ('17', '12', '12533337446', '321321', '1', '0', '1518421063', '1518435577');
 INSERT INTO `tp_orders` VALUES ('18', '2', '1253', '321321', '1', '0', '1518364800', '1518435577');
 
 -- ----------------------------
@@ -119,7 +138,7 @@ CREATE TABLE `tp_users` (
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_users
@@ -133,3 +152,4 @@ INSERT INTO `tp_users` VALUES ('6', '0', 'admi3n@admin.com', '463055555555', 'al
 INSERT INTO `tp_users` VALUES ('7', '0', 'admin45@admin.com', '4646546564', '463024796@qq.com', '$2y$10$aUMU4MFlQtmUGrcTKIq9E.AF04HrJDvZKx5LPt2phQRp0Rnj3iVeG', '0', '1', '1518105600', '1518435605');
 INSERT INTO `tp_users` VALUES ('8', '0', '23123@qq.com', '321', '23121', '$2y$10$vxnbfdV7rjpEB4BDyEuch.xKnf5vpuovdehK1GXPYd7H4cJ7VOpFq', '0', '1', '1518364800', '1518435605');
 INSERT INTO `tp_users` VALUES ('11', '13640222916', 'xxxxdianpu', '13213213', '12123123', '$2y$10$nKl0/glIQJxMMPl8VIwxbO7uVMlmnDEK93ieZsOv1Ok0xDuOYPT32', '0', '1', '1518428720', '1518435605');
+INSERT INTO `tp_users` VALUES ('12', '13640222915', '我大夫撒旦法金卡第三方', '123132132132', '13640222915', '$2y$10$f4lrlIOSetU.On0SGn2Sv.7KHO5S/Fd2IGhUelmjXCEa7uC02x1xy', '0', '1', '1518445753', '1518445894');
