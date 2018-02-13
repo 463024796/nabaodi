@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-02-12 23:14:20
+Date: 2018-02-13 22:45:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -60,11 +60,31 @@ CREATE TABLE `tp_blacklist` (
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`blacklist_id`),
   UNIQUE KEY `user_unique` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_blacklist
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for tp_black_order
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_black_order`;
+CREATE TABLE `tp_black_order` (
+  `black_order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `black_order_alipay_id` varchar(255) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`black_order_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_black_order
+-- ----------------------------
+INSERT INTO `tp_black_order` VALUES ('34', '12454782', '1518530931', '1518530931');
+INSERT INTO `tp_black_order` VALUES ('31', '2123454', '1518530928', '1518530928');
+INSERT INTO `tp_black_order` VALUES ('32', '128574', '1518530929', '1518530929');
+INSERT INTO `tp_black_order` VALUES ('33', '21318522', '1518530930', '1518530930');
 
 -- ----------------------------
 -- Table structure for tp_menu
@@ -103,6 +123,8 @@ CREATE TABLE `tp_orders` (
   `order_number` varchar(50) NOT NULL,
   `product_name` varchar(255) DEFAULT NULL,
   `status` tinyint(2) DEFAULT '0' COMMENT '0为未处理1为已处理',
+  `order_qq` varchar(50) DEFAULT NULL,
+  `order_alipay_id` varchar(255) DEFAULT NULL,
   `is_deleted` tinyint(2) DEFAULT '0',
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -114,12 +136,12 @@ CREATE TABLE `tp_orders` (
 -- ----------------------------
 -- Records of tp_orders
 -- ----------------------------
-INSERT INTO `tp_orders` VALUES ('13', '3', '123456', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('14', '7', '123412356', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('15', '4', '1256', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('16', '12', '12533336', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('17', '12', '12533337446', '321321', '1', '0', '1518421063', '1518435577');
-INSERT INTO `tp_orders` VALUES ('18', '2', '1253', '321321', '1', '0', '1518364800', '1518435577');
+INSERT INTO `tp_orders` VALUES ('13', '3', '123456', '321321', '1', '13222552513', '212321515857', '0', '1518421063', '1518505045');
+INSERT INTO `tp_orders` VALUES ('14', '7', '123412356', '321321', '1', '21335482', '12454782', '0', '1518421063', '1518505045');
+INSERT INTO `tp_orders` VALUES ('15', '4', '1256', '321321', '1', '132854528', '2318565134', '0', '1518421063', '1518505045');
+INSERT INTO `tp_orders` VALUES ('16', '12', '12533336', '321321', '1', '2132185', '21318522', '0', '1518421063', '1518505045');
+INSERT INTO `tp_orders` VALUES ('17', '12', '12533337446', '321321', '1', '233132154', '128574', '0', '1518421063', '1518505045');
+INSERT INTO `tp_orders` VALUES ('18', '2', '1253', '321321', '1', '2134854', '2123454', '0', '1518364800', '1518505045');
 
 -- ----------------------------
 -- Table structure for tp_users
@@ -137,19 +159,21 @@ CREATE TABLE `tp_users` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_unique` (`email`)
+  UNIQUE KEY `email_unique` (`email`),
+  UNIQUE KEY `phone` (`phone`),
+  UNIQUE KEY `alipay_id` (`alipay_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_users
 -- ----------------------------
-INSERT INTO `tp_users` VALUES ('1', '11111111111', 'asdasd', '88888', 'al121111', '$2y$10$av8CXNqEjHwkd4aK3Spzd.PndiEuiGI83ueENprSs/ws9RzWe1cyC', '0', '1', null, '1518435605');
-INSERT INTO `tp_users` VALUES ('2', '13640222917', 'asdasdasd', '463024796', '463024796@qq.com', '$2y$10$nKl0/glIQJxMMPl8VIwxbO7uVMlmnDEK93ieZsOv1Ok0xDuOYPT32', '1', '1', '1518091788', '1518091788');
-INSERT INTO `tp_users` VALUES ('3', '45665432111', '2asda', '463055555555', 'alibaba3213123', '$2y$10$ARsYmrtLlwdeqFsXNuAiOOv0GJg0OP3M2nGRqvLYerxpNKH93HVNu', '0', '1', null, '1518435605');
-INSERT INTO `tp_users` VALUES ('4', '0', 'wqwqwe', '463055555555', 'alibaba', '$2y$10$BrSMGXm.s3wf86On0CvtgOybTjC82QxZndIy3rlbcwIZWlC7FE3I.', '0', '1', '1518105600', '1518435605');
-INSERT INTO `tp_users` VALUES ('5', '0', 'asdascczc', '463055555555', 'alibaba', '$2y$10$dNl7epGZ3P1mvTV/n3G4A.3Y3tcWE6taYkGGV8mtviV0PTZiHI60.', '0', '1', '1518105600', '1518435605');
-INSERT INTO `tp_users` VALUES ('6', '0', 'admi3n@admin.com', '463055555555', 'alibaba', '$2y$10$zjBoGbS7MFV.yg3N8B6lPu6kNf7VqxbTFGxfM2qg5nZDYzrlt5oPe', '0', '1', '1518105600', '1518435605');
-INSERT INTO `tp_users` VALUES ('7', '0', 'admin45@admin.com', '4646546564', '463024796@qq.com', '$2y$10$aUMU4MFlQtmUGrcTKIq9E.AF04HrJDvZKx5LPt2phQRp0Rnj3iVeG', '0', '1', '1518105600', '1518435605');
-INSERT INTO `tp_users` VALUES ('8', '0', '23123@qq.com', '321', '23121', '$2y$10$vxnbfdV7rjpEB4BDyEuch.xKnf5vpuovdehK1GXPYd7H4cJ7VOpFq', '0', '1', '1518364800', '1518435605');
-INSERT INTO `tp_users` VALUES ('11', '13640222916', 'xxxxdianpu', '13213213', '12123123', '$2y$10$nKl0/glIQJxMMPl8VIwxbO7uVMlmnDEK93ieZsOv1Ok0xDuOYPT32', '0', '1', '1518428720', '1518435605');
-INSERT INTO `tp_users` VALUES ('12', '13640222915', '我大夫撒旦法金卡第三方', '123132132132', '13640222915', '$2y$10$f4lrlIOSetU.On0SGn2Sv.7KHO5S/Fd2IGhUelmjXCEa7uC02x1xy', '0', '1', '1518445753', '1518445894');
+INSERT INTO `tp_users` VALUES ('1', '11111111111', 'asdasd', '88888', 'al121111', '$2y$10$av8CXNqEjHwkd4aK3Spzd.PndiEuiGI83ueENprSs/ws9RzWe1cyC', '0', '1', null, '1518528235');
+INSERT INTO `tp_users` VALUES ('2', '13640222917', 'asdasdasd', '463024796', '463024796@qq.com', '$2y$10$nKl0/glIQJxMMPl8VIwxbO7uVMlmnDEK93ieZsOv1Ok0xDuOYPT32', '1', '1', '1518091788', '1518528235');
+INSERT INTO `tp_users` VALUES ('3', '45665432111', '2asda', '463055555555', 'alibaba3213123', '$2y$10$ARsYmrtLlwdeqFsXNuAiOOv0GJg0OP3M2nGRqvLYerxpNKH93HVNu', '0', '1', null, '1518528235');
+INSERT INTO `tp_users` VALUES ('4', '5465102', 'wqwqwe', '463055555555', 'alibaba', '$2y$10$BrSMGXm.s3wf86On0CvtgOybTjC82QxZndIy3rlbcwIZWlC7FE3I.', '0', '1', '1518105600', '1518528235');
+INSERT INTO `tp_users` VALUES ('5', '01465', 'asdascczc', '463055555555', 'alibaba56123', '$2y$10$dNl7epGZ3P1mvTV/n3G4A.3Y3tcWE6taYkGGV8mtviV0PTZiHI60.', '0', '1', '1518105600', '1518528235');
+INSERT INTO `tp_users` VALUES ('6', '04156456', 'admi3n@admin.com', '463055555555', 'alibaba545', '$2y$10$zjBoGbS7MFV.yg3N8B6lPu6kNf7VqxbTFGxfM2qg5nZDYzrlt5oPe', '0', '1', '1518105600', '1518528235');
+INSERT INTO `tp_users` VALUES ('7', '0154654', 'admin45@admin.com', '4646546564', '463024796', '$2y$10$aUMU4MFlQtmUGrcTKIq9E.AF04HrJDvZKx5LPt2phQRp0Rnj3iVeG', '0', '1', '1518105600', '1518528235');
+INSERT INTO `tp_users` VALUES ('8', '0', '23123@qq.com', '321', '23121', '$2y$10$vxnbfdV7rjpEB4BDyEuch.xKnf5vpuovdehK1GXPYd7H4cJ7VOpFq', '0', '1', '1518364800', '1518528235');
+INSERT INTO `tp_users` VALUES ('11', '13640222916', 'xxxxdianpu', '13213213', '12123123', '$2y$10$nKl0/glIQJxMMPl8VIwxbO7uVMlmnDEK93ieZsOv1Ok0xDuOYPT32', '0', '1', '1518428720', '1518528235');
+INSERT INTO `tp_users` VALUES ('12', '13640222915', '我大夫撒旦法金卡第三方', '123132132132', '13640222915', '$2y$10$f4lrlIOSetU.On0SGn2Sv.7KHO5S/Fd2IGhUelmjXCEa7uC02x1xy', '0', '1', '1518445753', '1518528235');
