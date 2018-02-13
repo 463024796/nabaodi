@@ -31,11 +31,14 @@ class Order extends Base
             ->order("or.order_id", 'desc')
             ->where($where)
             ->paginate(15)->each(function ($user) {
-            $black = Blacklist::where("user_id", $user->id)->find();
-            if ($black) {
-                $user['status'] = 4;
-            }
-
+                $black = Blacklist::where("user_id", $user->id)->find();
+                $black2 = Blacklist::table("tp_black_order")->where("black_order_alipay_id", $user->order_alipay_id)->find();
+                if ($black) {
+                    $user['status'] = 4;
+                }
+                if ($black2) {
+                    $user['status'] = 5;
+                }
         });
         $this->assign("list", $order);
         return view('index/admin-allOrder');
@@ -75,8 +78,8 @@ class Order extends Base
         $data = $request->post();
         $array['order_number'] = $data['data'][0];
         $array['email'] = $data['data'][1];
-        $array['alipay_id'] = $data['data'][2];
-        $array['qq'] = $data['data'][3];
+        $array['order_alipay_id'] = $data['data'][2];
+        $array['order_qq'] = $data['data'][3];
         $array['product_name'] = $data['data'][4];
         $array['created_at'] = $data['data'][5];
         $array['updated_at'] = $array['created_at'];
@@ -86,7 +89,7 @@ class Order extends Base
             return $res;
         }
         //检测是否位于黑名单
-        if (!Blacklist::check($array['alipay_id'])) {
+        if (!Blacklist::check($array['order_alipay_id'])) {
             return "该旺旺号处于黑名单状态，禁止添加订单";
         }
         $order = new OrderModel;

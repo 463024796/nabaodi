@@ -93,7 +93,7 @@
     // //拉黑
     $("button[name='del-black']").click(function () {
         //获取id
-        var id = $(this).parents("tr").find("input[name='user_id']").val();
+        var id = $(this).parents("tr").find("input[name='order_id']").val();
         // console.log(id)
         $.get("/admin/orders/del-black", { id: id }, function (data) {
             if (data !== true) {

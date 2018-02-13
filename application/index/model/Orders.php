@@ -15,30 +15,33 @@ class Orders extends Model
      */
     public function store($data)
     {
-        $user = self::table("tp_users")
-            ->where("email", $data['email'])
-            ->find();
-        if (!$user) {
-            //据大佬说。要新增用户
-            self::table("tp_users")
-                ->insert([
-                    'email' => $data['email'],
-                    'qq' => $data['qq'],
-                    'alipay_id' => $data['alipay_id'],
-                    'password' => password_hash('888888', PASSWORD_DEFAULT),
-                    'is_admin' => 0,
-                    'created_at' => strtotime($data['created_at']),
-                    'updated_at' => strtotime($data['created_at']),
-                ]);
-            //我也不知道怎么了。居然没有id重新查询下把，，，
-            $user = self::table("tp_users")
-                ->where("email", $data['email'])
-                ->find();
-        }
+        // $user = self::table("tp_users")
+        //     ->where("email", $data['email'])
+        //     ->find();
+        // if (!$user) {
+        //     //据大佬说。要新增用户
+        //     self::table("tp_users")
+        //         ->insert([
+        //             'email' => $data['email'],
+        //             'qq' => $data['qq'],
+        //             'alipay_id' => $data['alipay_id'],
+        //             'password' => password_hash('888888', PASSWORD_DEFAULT),
+        //             'is_admin' => 0,
+        //             'created_at' => strtotime($data['created_at']),
+        //             'updated_at' => strtotime($data['created_at']),
+        //         ]);
+        //     //我也不知道怎么了。居然没有id重新查询下把，，，
+        //     $user = self::table("tp_users")
+        //         ->where("email", $data['email'])
+        //         ->find();
+        // }
+        $user = session("user");
         self::save([
-            'user_id' => $user->id,
+            'user_id' => $user['id'],
             'product_name' => $data['product_name'],
-            'order_number' => $data['order_number']
+            'order_number' => $data['order_number'],
+            'order_qq' => $data['order_qq'],
+            'order_alipay_id' => $data['order_alipay_id'],
         ]);
         return true;
     }
@@ -107,14 +110,18 @@ class Orders extends Model
     {
         return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("u.alipay_id|u.qq", "like", "%" . $data . "%")
+            ->where("or.order_alipay_id|or.order_qq", "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->paginate(15)->each(function ($user) {
-            $black = Blacklist::where("user_id", $user->id)->find();
-            if ($black) {
-                $user['status'] = 4;
-            }
+                $black = Blacklist::where("user_id", $user->id)->find();
+                $black2 = Blacklist::table("tp_black_order")->where("black_order_alipay_id", $user->order_alipay_id)->find();
+                if ($black) {
+                    $user['status'] = 4;
+                }
+                if ($black2) {
+                    $user['status'] = 5;
+                }
 
         });
     }
@@ -146,7 +153,7 @@ class Orders extends Model
         
         return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("u.qq|u.alipay_id", "like", "%" . $data . "%")
+            ->where("or.order_alipay_id|or.order_qq", "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->where("or.status", $is)
@@ -160,7 +167,7 @@ class Orders extends Model
     {
         return self::alias("or")
             ->join("users u", 'or.user_id = u.id', 'left')
-            ->where("u.qq|u.alipay_id", "like", "%" . $data . "%")
+            ->where("or.order_alipay_id|or.order_qq", "like", "%" . $data . "%")
             ->order("or.order_id", 'desc')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->where("or.is_deleted", 1)

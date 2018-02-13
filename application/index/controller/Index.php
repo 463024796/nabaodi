@@ -16,9 +16,9 @@ class Index extends Base
         //昨日提交订单
         $yesterday = $order->whereTime('created_at', 'between', [$start_y, $end_y])->count();
         //未处理订单
-        $not = $order->where("status", 0)->where('user_id not in (select user_id from tp_blacklist)')->where("is_deleted", 0)->count();
+        $not = $order->where("status", 0)->where("is_deleted", 0)->count();
         //已完成
-        $complete = $order->where("status", 1)->where('user_id not in (select user_id from tp_blacklist)')->where("is_deleted", 0)->count();
+        $complete = $order->where("status", 1)->where("is_deleted", 0)->count();
         //客户数量
         $count = $user->count();
 

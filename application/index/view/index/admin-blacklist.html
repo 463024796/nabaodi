@@ -44,8 +44,8 @@
                 </th>
                 <th class="table-id">ID</th>
                 <th class="table-email">店铺名称</th>
-                <th class="table-wangwang">手机号</th>
-                <th class="table-qqnumber am-hide-sm-only">QQ</th>
+                <th class="table-wangwang">客户旺旺号</th>
+                <!-- <th class="table-qqnumber am-hide-sm-only">客户QQ</th> -->
                 <th class="table-date am-hide-sm-only">拉黑日期</th>
                 <th class="table-set">操作</th>
               </tr>
@@ -53,22 +53,22 @@
             <tbody>
               {foreach $list as $val}
               <tr>
-                <input type="hidden" value="{$val.id}" name="user_id">
+                <input type="hidden" value="{$val.user_id}" name="user_id">
                 <td>
-                  <input type="checkbox" value='{$val.user_id}' name="id" />
+                  <input type="checkbox" value='{$val.alipay_id}' name="order_id" />
                 </td>
                 <td>{$val.user_id}</td>
                 <td>
                   <a>{$val.email}</a>
                 </td>
-                <td>{$val.phone}</td>
-                <td class="am-hide-sm-only">{$val.qq}</td>
+                <td>{$val.alipay_id}</td>
+                <!-- <td class="am-hide-sm-only"></td> -->
                 <td class="am-hide-sm-only">{$val.updated_at}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
                       <!-- <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 还原</button> -->
-                      <button type='button' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="delById('/admin/blacklist/del-reback', $(this), 'name', 'user_id')">
+                      <button type='button' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick="delById('/admin/blacklist/del-reback', $(this), 'name', 'order_id')">
                         <span class="am-icon-trash-o"></span> 移除</button>
                     </div>
                   </div>
@@ -78,9 +78,9 @@
             </tbody>
           </table>
           <div class="am-cf">
-            共 {$list->total()} 条记录
+            共 {$count} 条记录
             <div class="am-fr">
-              {$list->render()}
+              {$render|raw}
             </div>
           </div>
         </form>

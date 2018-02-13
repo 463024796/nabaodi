@@ -30,7 +30,7 @@ class Base extends Controller
     {
         //如果登录后有按记住状态的话。那就直接跳转
         if (cookie("user") !== null) {
-            $user = json_decode(cookie("user"));
+            $user = json_decode(cookie("user"), true);
             session("user", $user);
         }
         if (!session("?user")) {
