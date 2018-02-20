@@ -46,11 +46,11 @@ Route::group("admin", function(){
     Route::rule("/blacklist/member", 'index/Blacklist/delMemberBlack');
     Route::rule("/weblog/index", 'index/webLog/index');
 });
-
+Route::rule("/", 'index/Login/login');
 // Route::group("index", function() {
     // Route::rule("/show", 'index/Member/showView');
     // Route::post("/add", "index/Member/store");
 // });
 return [
-
+    
 ];
