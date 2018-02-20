@@ -75,3 +75,24 @@ function getPageHtml($page, $pages, $url)
    $_pageHtml .= '</ul>';
    return $_pageHtml;
 }
+/**
+ * 是否存在方法
+ * @param string $module 模块
+ * @param string $controller 待判定控制器名
+ * @param string $action 待判定控制器名
+ * @return number 方法结果，0不存在控制器 1存在控制器但是不存在方法 2存在控制和方法
+ */
+function has_action($module,$controller,$action)
+{
+    $arr=\ReadClass::readDir(__DIR__ . $module. '/' .'controller');
+    if((!empty($arr[$controller])) && $arr[$controller]['class_name']==$controller ){
+		$method_name=array_map('array_shift',$arr[$controller]['method']);
+        if(in_array($action, $method_name)){
+           return 2;
+        }else{
+           return 1;
+        }
+    }else{
+        return 0;
+    }
+}

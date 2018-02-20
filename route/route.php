@@ -44,6 +44,7 @@ Route::group("admin", function(){
     Route::rule("/menbers/del-register", 'index/Member/delRegisterMembers');
     Route::rule("/orders/del-reback-uncompleted", 'index/Order/undoCompleted');
     Route::rule("/blacklist/member", 'index/Blacklist/delMemberBlack');
+    Route::rule("/weblog/index", 'index/webLog/index');
 });
 
 // Route::group("index", function() {

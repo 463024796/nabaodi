@@ -51,12 +51,18 @@ class Orders extends Model
      */
     public static function getUncompleted()
     {
+        if (!session('user')['is_admin']) {
+            $where = 'or.user_id='.session('user')['id'];
+        } else {
+            $where = '';
+        }
         return self::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->order("or.order_id", 'desc')
             ->where("or.status", 0)
             ->where("or.is_deleted", 0)
+            ->where($where)
             ->where('u.id not in (select user_id from tp_blacklist)')
             ->paginate(15);
     }
@@ -65,12 +71,18 @@ class Orders extends Model
      */
     public static function getCompleted()
     {
+        if (!session('user')['is_admin']) {
+            $where = 'or.user_id='.session('user')['id'];
+        } else {
+            $where = '';
+        }
         return self::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->order("or.order_id", 'desc')
             ->where("or.status", 1)
             ->where("or.is_deleted", 0)
+            ->where($where)
             ->where('u.id not in (select user_id from tp_blacklist)')
             ->paginate(15);
     }
@@ -80,11 +92,17 @@ class Orders extends Model
      */
     public static function getRecycling()
     {
+        if (!session('user')['is_admin']) {
+            $where = 'or.user_id='.session('user')['id'];
+        } else {
+            $where = '';
+        }
         return self::alias("or")
             ->join("users u", 'u.id = or.user_id', 'left')
             ->field("or.*,u.email, u.id, u.alipay_id,u.qq,u.phone")
             ->order("or.order_id", 'desc')
             ->where("or.is_deleted", 1)
+            ->where($where)
             ->where('u.id not in (select user_id from tp_blacklist)')
             ->paginate(15);
     }

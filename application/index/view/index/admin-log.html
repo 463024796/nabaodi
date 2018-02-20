@@ -1,0 +1,93 @@
+{extend name="layout"} {block name="content"}
+<!-- content start -->
+<div class="admin-content">
+  <div class="admin-content-body">
+    <div class="am-cf am-padding am-padding-bottom-0">
+      <div class="am-fl am-cf">
+        <strong class="am-text-primary am-text-lg">操作日志</strong> /
+        <small>Log</small>
+      </div>
+    </div>
+
+    <hr>
+<form action="" method="post">
+    <div class="am-g">
+      <div class="am-u-sm-12 am-u-md-6">
+        <div class="am-btn-toolbar">
+          <div class="am-btn-group am-btn-group-xs">
+            <!-- <button type="button" class="am-btn am-btn-default" onclick="batch('/admin/orders/del-order-reback')">
+              <span class="am-icon-reply-all"></span> 还原</button>
+            <button type="button" class="am-btn am-btn-default" onclick="batch('/admin/orders/delete-orders')">
+              <span class="am-icon-trash-o"></span> 彻底删除</button> -->
+          </div>
+        </div>
+      </div>
+      <div class="am-u-sm-12 am-u-md-3">
+        <div class="am-input-group am-input-group-sm">
+          <!-- <input type="text" class="am-form-field" name='search'  placeholder="旺旺号">
+          <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="submit">搜索</button> -->
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+    <div class="am-g">
+      <div class="am-u-sm-12">
+        <form class="am-form">
+          <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+              <tr>
+                <th class="table-check">
+                  <input type="checkbox" id="checkall"/>
+                </th>
+                <th class="table-id">ID</th>
+                <th class="table-email">URL</th>
+                <th class="table-wangwang">method</th>
+                <th class="table-qqnumber am-hide-sm-only">操作人</th>
+                <th class="table-qqnumber am-hide-sm-only">被操作人</th>
+                <th class="table-date am-hide-sm-only">操作名称</th>
+                <th class="table-set">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foreach $list as $val}
+              <tr>
+                  <input type="hidden" value="{$val.id}" name="id">
+                  <td>
+                    <input type="checkbox" value='{$val.id}' name="id" />
+                  </td>
+                  <td>{$val.id}</td>
+                  <td>
+                    <a>{$val.url}</a>
+                  </td>
+                  <td>{$val.method}</td>
+                  <td class="am-hide-sm-only">{$val.email}</td>
+                  <td class="am-hide-sm-only"><span title="{$val.user_name|default=0}">{$val.user_name|substr=0,20}</span></td>
+                  <td class="am-hide-sm-only">{$val.title}</td>
+                  <td class="am-hide-sm-only">{$val.otime}</td>
+                <td></td>
+              </tr>
+              {/foreach}
+            </tbody>
+          </table>
+          <div class="am-cf">
+            共 {$list->total()} 条记录 {$list->render()|raw}
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  </footer>
+
+</div>
+<!-- content end -->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+{/block}

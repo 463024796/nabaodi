@@ -6,7 +6,7 @@ use think\Validate;
 class OrderValidate extends Validate
 {
     protected $rule = [
-        'order_number' => 'require|unique:orders,order_number,,order_id',
+        'order_number' => 'require|unique:orders,order_number,0,order_id',
         'email' => 'require',
         'order_alipay_id' => 'require',
         'order_qq' => 'require',

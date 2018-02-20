@@ -76,8 +76,8 @@ class Order extends Base
     public function store(Request $request)
     {
         $data = $request->post();
-        $array['order_number'] = $data['data'][0];
-        $array['email'] = $data['data'][1];
+        $array['order_number'] = $data['data'][1];
+        $array['email'] = $data['data'][0];
         $array['order_alipay_id'] = $data['data'][2];
         $array['order_qq'] = $data['data'][3];
         $array['product_name'] = $data['data'][4];
