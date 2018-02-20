@@ -165,6 +165,7 @@ return [
             '/admin/blacklist',
             '/auth/logout',
             '/auth/login',
+            '/auth/register',
             '/admin/weblog/index',
             '/admin/user',
             '/admin/orders'
