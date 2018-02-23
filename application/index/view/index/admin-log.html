@@ -47,7 +47,7 @@
                 <th class="table-qqnumber am-hide-sm-only">操作人</th>
                 <th class="table-qqnumber am-hide-sm-only">被操作人</th>
                 <th class="table-date am-hide-sm-only">操作名称</th>
-                <th class="table-set">操作</th>
+                <th class="table-set">操作时间</th>
               </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@
                   <td class="am-hide-sm-only">{$val.email}</td>
                   <td class="am-hide-sm-only"><span title="{$val.user_name|default=0}">{$val.user_name|substr=0,20}</span></td>
                   <td class="am-hide-sm-only">{$val.title}</td>
-                  <td class="am-hide-sm-only">{$val.otime}</td>
+                  <td class="am-hide-sm-only">{php}echo date("Y-n-d H:i:s", $val['created_at']);{/php}</td>
                 <td></td>
               </tr>
               {/foreach}

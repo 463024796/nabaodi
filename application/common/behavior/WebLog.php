@@ -61,7 +61,7 @@ class WebLog
                 'url'       => '/'.$request->path(),
                 'method'    => $request->isAjax()?'Ajax':($request->isPjax()?'Pjax':$request->method()),
                 'data'      => json_encode($requestData),
-                'otime'     => time(),
+                'created_at'     => time(),
             ];
 			Db::name('web_log')->insert($data);
 

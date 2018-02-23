@@ -15,7 +15,7 @@ class Log extends Model
     {
         return self::join("users", 'users.id = tp_web_log.uid', 'left')
             ->field("tp_web_log.*, users.email, users.alipay_id, users.qq, users.phone")
-            ->order("otime", 'desc')
+            ->order("created_at", 'desc')
             ->paginate(15)->each(function ($user) {
             $user['title'] = config('action_name')[$user['url']];
             $data = json_decode($user['data'], true);
