@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : 2131
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shubaona
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-02-20 21:21:10
+Date: 2018-02-28 21:21:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -161,7 +161,7 @@ CREATE TABLE `tp_users` (
   UNIQUE KEY `email_unique` (`email`),
   UNIQUE KEY `phone` (`phone`),
   UNIQUE KEY `alipay_id` (`alipay_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_users
@@ -176,6 +176,7 @@ INSERT INTO `tp_users` VALUES ('7', '0154654', 'admin45@admin.com', '4646546564'
 INSERT INTO `tp_users` VALUES ('8', '0', '23123@qq.com', '321', '23121', '$2y$10$vxnbfdV7rjpEB4BDyEuch.xKnf5vpuovdehK1GXPYd7H4cJ7VOpFq', '0', '1', '1518364800', '1519117699');
 INSERT INTO `tp_users` VALUES ('11', '13640222916', 'xxxxdianpu', '13213213', '12123123', '$2y$10$nKl0/glIQJxMMPl8VIwxbO7uVMlmnDEK93ieZsOv1Ok0xDuOYPT32', '0', '1', '1518428720', '1519117699');
 INSERT INTO `tp_users` VALUES ('12', '13640222915', '我大夫撒旦法金卡第三方', '123132132132', '13640222915', '$2y$10$f4lrlIOSetU.On0SGn2Sv.7KHO5S/Fd2IGhUelmjXCEa7uC02x1xy', '0', '1', '1518445753', '1519117699');
+INSERT INTO `tp_users` VALUES ('13', '13640222914', '就不删掉都是', '6446213345', '13640222917', '$2y$10$egL63goXyLPdsHULIQIa6O/kXDjbkN4rM46pfzKq/Jkq0KDICSuA6', '0', '0', '1519134605', '1519134605');
 
 -- ----------------------------
 -- Table structure for tp_web_log
@@ -188,13 +189,13 @@ CREATE TABLE `tp_web_log` (
   `url` varchar(255) NOT NULL COMMENT 'url',
   `method` varchar(10) NOT NULL DEFAULT 'GET' COMMENT '请求类型',
   `data` text NOT NULL COMMENT '请求的param数据，serialize后的',
-  `otime` int(10) unsigned NOT NULL COMMENT '操作时间',
+  `created_at` int(11) unsigned NOT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`) USING BTREE,
   KEY `ip` (`ip`) USING BTREE,
-  KEY `otime` (`otime`) USING BTREE,
+  KEY `otime` (`created_at`) USING BTREE,
   KEY `method` (`method`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COMMENT='网站日志';
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='网站日志';
 
 -- ----------------------------
 -- Records of tp_web_log
